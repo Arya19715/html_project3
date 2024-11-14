@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marie Rose Nedamo - Instagram Profile</title>
+    <!-- Favicon Link -->
+    <link rel="icon" href="favicon.ico" type="image/png">
+    <style>
+        /* Global reset and styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff6f61, #ffb6a1);
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Profile container background and style */
+        .profile-container {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.95); /* Slight transparency for the container */
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            transition: transform 0.3s ease;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .profile-container:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Header Styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            color: #ff6f61;
+            font-size: 40px;
+            font-weight: 700;
+        }
+
+        .edit-btn {
+            padding: 12px 24px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background-color: #d14c3f;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-header img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-header img:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-header .info {
+            color: #333;
+        }
+
+        .profile-header .info h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .profile-header .info p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .profile-header .info .location,
+        .profile-header .info .website {
+            font-size: 16px;
+            color: #777;
+        }
+
+        /* About Me Section */
+        .about-me {
+            background-color: #fff0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .about-me h3 {
+            color: #ff6f61;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .about-me p {
+            color: #555;
+            font-size: 18px;
+        }
+
+        /* Social Links Styling */
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            margin-right: 20px;
+            color: #ff6f61;
+            font-size: 26px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #d14c3f;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .testimonials h3 {
+            color: #ff6f61;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .testimonial {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Contact Form Section */
+        .contact-form {
+            background-color: #ffe0e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .contact-form h3 {
+            color: #ff6f61;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .contact-form button {
+            padding: 12px 25px;
+            background-color: #ff6f61;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #d14c3f;
+        }
+
+        /* Follow Button Styling */
+        .follow-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #ff6f61;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .follow-btn:hover {
+            background-color: #d14c3f;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-header img {
+                margin-bottom: 15px;
+            }
+
+            .social-links {
+                margin-top: 10px;
+            }
+
+            .gallery img {
+                width: 48%;
+                margin-right: 4%;
+            }
+
+            .contact-form {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="header">
+            <h1>Marie Rose Nedamo</h1>
+            <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+        </div>
+        <div class="profile-header">
+            <img src="marie.jpg" alt="Profile Picture">
+            <div class="info">
+                <h2>Marie Rose Nedamo</h2>
+                <p>Nature Lover | Singer | Vegan 🌱</p>
+                <p class="location">📍 Cebu, Philippines</p>
+                <p class="website"><a href="https://www.facebook.com/aryaa.nedamo05/" target="_blank">Facebook Link</a></p>
+            </div>
+        </div>
+
+        <div class="about-me">
+            <h3>About Me</h3>
+            <p>Hello! I'm Marie, a nature lover and love singing. I love listening to Music, and I believe that every lyrics of a song has a story worth telling. I also advocate for a sustainable lifestyle, including being a proud vegan. Join me on my journey to music!</p>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.instagram.com/arie_rsee/" target="_blank">📷 Instagram</a>
+            <a href="https://www.twitter.com" target="_blank">🐦 Twitter</a>
+            <a href="https://www.facebook.com/aryaa.nedamo05/" target="_blank">📘 Facebook</a>
+        </div>
+
+        <div class="testimonials">
+            <h3>Testimonials</h3>
+            <div class="testimonial">"Marie has an incredible voice!" - Ria</div>
+            <div class="testimonial">"Her music life was truly inspiring." - Ken</div>
+        </div>
+
+        <div class="contact-form">
+            <h3>Contact Me</h3>
+            <form>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <button class="follow-btn" onclick="followUser()">Follow</button>
+    </div>
+
+    <script>
+        // Function to handle "Edit Profile" button click
+        function editProfile() {
+            alert("Edit Profile feature coming soon!");
+        }
+
+        // Function to handle "Follow" button click
+        function followUser() {
+            alert("You are now following Marie!");
+            const followBtn = document.querySelector(".follow-btn");
+            followBtn.textContent = "Following";
+            followBtn.style.backgroundColor = "#d14c3f";
+            followBtn.setAttribute("disabled", "true");
+        }
+    </script>
+</body>
+</html>

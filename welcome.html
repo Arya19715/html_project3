@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram News Feed</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* Peach to Lavender gradient */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 40px;
+            color: #5c6bc0;  /* Soft blue */
+            margin: 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        header div button {
+            background-color: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #5c6bc0;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        header div button:hover {
+            color: #3949ab; /* Darker blue for hover effect */
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-bar input {
+            width: 80%;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #5c6bc0; /* Focus border color */
+        }
+
+        .profile-row {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 25px;
+        }
+
+        .profile-pic {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+        }
+
+        .feed {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .post {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+            background-image: linear-gradient(to top right, #ff9a8b, #ff6a88, #d063a6); /* Gradient background on post */
+            overflow: hidden;
+        }
+
+        .post:hover {
+            transform: scale(1.03);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .post-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .post-header .username {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .post-header .timestamp {
+            font-size: 12px;
+            color: #888;
+            margin-left: 10px;
+        }
+
+        .post-image, .post-video {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .post-image:hover {
+            transform: scale(1.05);
+        }
+
+        .post-footer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .engagement {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .engagement button {
+            background-color: #5c6bc0; /* Blue color for buttons */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .engagement button:hover {
+            background-color: #3949ab; /* Darker blue on hover */
+        }
+
+        .caption {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .comment-box {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .comment-box input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .comments-list p {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+            margin-left: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 30px;
+            padding: 15px;
+        }
+
+        .footer a {
+            color: #5c6bc0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .profile-card .name {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .profile-card .bio {
+            font-size: 14px;
+            color: #777;
+            margin: 10px 0;
+        }
+
+        .profile-card .edit-btn {
+            background-color: #5c6bc0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-card .edit-btn:hover {
+            background-color: #3949ab;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-bar input {
+                width: 100%;
+            }
+
+            .profile-row {
+                justify-content: center;
+            }
+
+            .post-header .username {
+                font-size: 16px;
+            }
+
+            .post-footer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Instagram</h1>
+            <div>
+                <button onclick="openChat()">💬</button>
+                <button onclick="goHome()">🏠</button>
+                <button onclick="addPost()">➕</button>
+            </div>
+        </header>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search..." oninput="filterPosts(this.value)">
+        </div>
+
+        <div class="profile-row">
+            <img src="marie.jpg" alt="User 1" class="profile-pic">
+            <img src="vcn.jpg" alt="User 2" class="profile-pic">
+            <img src="lee.jpg" alt="User 3" class="profile-pic">
+            <img src="eve.jpg" alt="User 4" class="profile-pic">
+        </div>
+
+        <div class="profile-card">
+            <img src="marie.jpg" alt="Marie" />
+            <div class="name">Marie</div>
+            <div class="bio">Love to explore nature. 📸 | Singer | Vegan 🌱</div>
+            <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+            <a href="profile.html">About Marie</a>
+        </div>
+
+        <div class="feed">
+            <!-- Post 1 (Image) -->
+            <div class="post" data-caption="Exploring Nature">
+                <div class="post-header">
+                    <img src="marie.jpg" alt="Marie" class="profile-pic">
+                    <span class="username">Marie</span>
+                    <span class="timestamp">2 hours ago</span>
+                </div>
+                <img src="marie2.jpg" alt="Post 1" class="post-image">
+                <div class="post-footer">
+                    <div class="engagement">
+                        <button class="like" onclick="toggleLike(this)">❤️ Like</button>
+                        <button class="comment" onclick="toggleComment(this)">💬 Comment</button>
+                    </div>
+                    <p class="caption">Exploring 🌳</p>
+                    <div class="comment-box">
+                        <input type="text" placeholder="Add a comment..." onkeypress="handleComment(event, this)">
+                        <div class="comments-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post 2 (Image) -->
+            <div class="post" data-caption="Tech Life">
+                <div class="post-header">
+                    <img src="vcn.jpg" alt="Vincent" class="profile-pic">
+                    <span class="username">Vincent</span>
+                    <span class="timestamp">5 hours ago</span>
+                </div>
+                <img src="vcn2.jpg" alt="Post 2" class="post-image">
+                <div class="post-footer">
+                    <div class="engagement">
+                        <button class="like" onclick="toggleLike(this)">❤️ Like</button>
+                        <button class="comment" onclick="toggleComment(this)">💬 Comment</button>
+                    </div>
+                    <p class="caption">Worth Taking! 🚀</p>
+                    <div class="comment-box">
+                        <input type="text" placeholder="Add a comment..." onkeypress="handleComment(event, this)">
+                        <div class="comments-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post 3 (Image) -->
+            <div class="post" data-caption="Weddings and Memories">
+                <div class="post-header">
+                    <img src="lee.jpg" alt="Lee" class="profile-pic">
+                    <span class="username">Lee</span>
+                    <span class="timestamp">1 day ago</span>
+                </div>
+                <img src="lee2.jpg" alt="Post 3" class="post-image">
+                <div class="post-footer">
+                    <div class="engagement">
+                        <button class="like" onclick="toggleLike(this)">❤️ Like</button>
+                        <button class="comment" onclick="toggleComment(this)">💬 Comment</button>
+                    </div>
+                    <p class="caption">Congrats! 🎉</p>
+                    <div class="comment-box">
+                        <input type="text" placeholder="Add a comment..." onkeypress="handleComment(event, this)">
+                        <div class="comments-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Instagram © 2024 | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleLike(button) {
+            const isLiked = button.classList.toggle('liked');
+            button.textContent = isLiked ? '❤️ Liked' : '❤️ Like';
+        }
+
+        function toggleComment(button) {
+            const commentBox = button.closest('.post-footer').querySelector('.comment-box');
+            commentBox.style.display = commentBox.style.display === 'block' ? 'none' : 'block';
+            commentBox.querySelector('input').focus();
+        }
+
+        function handleComment(event, input) {
+            if (event.key === 'Enter' && input.value.trim() !== '') {
+                const commentList = input.nextElementSibling;
+                const newComment = document.createElement('p');
+                newComment.textContent = input.value;
+                commentList.appendChild(newComment);
+                input.value = ''; // Clear input after adding comment
+            }
+        }
+
+        function filterPosts(query) {
+            const posts = document.querySelectorAll('.post');
+            posts.forEach(post => {
+                const caption = post.getAttribute('data-caption').toLowerCase();
+                post.style.display = caption.includes(query.toLowerCase()) ? 'block' : 'none';
+            });
+        }
+
+        function openChat() {
+            alert("Chat feature coming soon!");
+        }
+
+        function goHome() {
+            alert("Going to Home!");
+        }
+
+        function addPost() {
+            alert("Add Post feature coming soon!");
+        }
+
+        function editProfile() {
+            alert("Edit Profile feature coming soon!");
+        }
+    </script>
+</body>
+</html>
+
+
